@@ -99,3 +99,11 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+env
+__pycache__
+gitcen.egg-info
+.idea
+
+
+
