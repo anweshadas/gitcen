@@ -1,11 +1,13 @@
-import click
+"""This module does a census/survey of a git repo"""
 import os
 import datetime
+import click
 from pygit2 import Repository
-from pygit2 import GIT_SORT_TOPOLOGICAL, GIT_SORT_REVERSE
+from pygit2 import GIT_SORT_TOPOLOGICAL
 
 
 def date(path):
+    """Function to find the commits done on each day"""
     data = {}
     repo = Repository(path)
     for commit in repo.walk(repo.head.target, GIT_SORT_TOPOLOGICAL):
@@ -24,7 +26,8 @@ def date(path):
 
 
 
-def time(path):
+def get_time(path):
+    """Function to find the commits done on each hour"""
     times = {}
     repo = Repository(path)
     for commit in repo.walk(repo.head.target, GIT_SORT_TOPOLOGICAL):
@@ -33,9 +36,10 @@ def time(path):
         number += 1
         times[time] = number
     for time in range(0, 24):
-        print("%d has %d commits" % (time, times.get(str(time), 0)))
+        print("%d hour has %d commits" % (time, times.get(str(time), 0)))
 
 def authors(path):
+    """Function to find the commits done on each authors, with their name and mail id"""
     info = {}
     repo = Repository(path)
     for commit in repo.walk(repo.head.target, GIT_SORT_TOPOLOGICAL):
@@ -49,13 +53,10 @@ def authors(path):
         msg = "{0} has {1} commits".format(author, number)
         print(msg)
 
-
-
-
-
 @click.command()
-@click.option('--path',help="Will print the path provided.")
+@click.option('--path', help="Will print the path provided.")
 def main(path):
+    """This is the primary function from where I am calling the other functions"""
     if not path:
         click.echo("You need to provide the path.")
         return
@@ -69,9 +70,7 @@ def main(path):
             path = os.path.join(path, ".git")
             if os.path.exists(path):
                 date(path)
+                get_time(path)
                 authors(path)
     else:
         print("Please provide a correct git repository path.")
-
-
-
