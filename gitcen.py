@@ -69,12 +69,15 @@ def main(path, author):
 
         if not path.endswith(".git" or ".git/"):
             path = os.path.join(path, ".git")
-            if os.path.exists(path):
-                if author:
-                    authors(path)
-                else:
-                    date(path)
-                    get_time(path)
+            if not os.path.exists(path):
+                print("This is not a git repo")
+                return
+        print(path)
+        if author:
+            authors(path)
+        else:
+            date(path)
+            get_time(path)
 
     else:
         print("Please provide a correct git repository path.")
