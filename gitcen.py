@@ -55,7 +55,8 @@ def authors(path):
 
 @click.command()
 @click.option('--path', help="Will print the path provided.")
-def main(path):
+@click.option('--author', is_flag=True, help="Will print the which author has how many commits.")
+def main(path, author):
     """This is the primary function from where I am calling the other functions"""
     if not path:
         click.echo("You need to provide the path.")
@@ -69,8 +70,11 @@ def main(path):
         if not path.endswith(".git" or ".git/"):
             path = os.path.join(path, ".git")
             if os.path.exists(path):
-                date(path)
-                get_time(path)
-                authors(path)
+                if author:
+                    authors(path)
+                else:
+                    date(path)
+                    get_time(path)
+
     else:
         print("Please provide a correct git repository path.")
