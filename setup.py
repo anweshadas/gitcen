@@ -12,6 +12,7 @@ setup(
     py_modules=['gitcen'],
     install_requires=[
         'Click',
+        'pygit2==0.24'
     ],
     entry_points='''
         [console_scripts]
