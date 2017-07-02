@@ -56,7 +56,8 @@ def authors(path):
 @click.command()
 @click.option('--path', help="Will print the path provided.")
 @click.option('--author', is_flag=True, help="Will print the which author has how many commits.")
-def main(path, author):
+@click.option('--all', is_flag=True, help="Will print all the informations.")
+def main(path, author, all):
     """This is the primary function from where I am calling the other functions"""
     if not path:
         click.echo("You need to provide the path.")
@@ -72,12 +73,19 @@ def main(path, author):
             if not os.path.exists(path):
                 print("This is not a git repo")
                 return
-        print(path)
+        #  Now we have the correct path for a git repository.
+        #  The value for path/the file path has .git or .git/ at the end.
         if author:
+            authors(path)
+        elif all:
+            date(path)
+            get_time(path)
             authors(path)
         else:
             date(path)
             get_time(path)
+
+
 
     else:
         print("Please provide a correct git repository path.")
