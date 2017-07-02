@@ -2,6 +2,10 @@
 
 A project to find git information. This project finds the git information about authors' commits, most active days and time.
 
+### License
+
+GPLv3+.
+
 ### Dependecies
 
 - Click
