@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="gitcen",
-    version='0.1',
+    version='0.1.0',
     description="A project to find git information.",
     long_description="A project to find git information about authors' commits,most active days and time.",
     author="Anwesha Das.",
