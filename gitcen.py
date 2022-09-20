@@ -89,3 +89,8 @@ def main(path, author, all):
 
     else:
         print("Please provide a correct git repository path.")
+
+
+if __name__=="__main":
+    main()
+
