@@ -11,7 +11,7 @@ def date(path):
     data = {}
     repo = Repository(path)
     for commit in repo.walk(repo.head.target, GIT_SORT_TOPOLOGICAL):
-        day = datetime.datetime.fromtimestamp(commit.commit_time).strftime('%A')
+        day = datetime.datetime.fromtimestamp(commit.commit_time).strftime("%A")
         number = data.get(day, 0)
         number += 1
         data[day] = number
@@ -24,19 +24,18 @@ def date(path):
     print("Saturday has {0} commits".format(data["Saturday"]))
 
 
-
-
 def get_time(path):
     """Function to find the commits done on each hour"""
     times = {}
     repo = Repository(path)
     for commit in repo.walk(repo.head.target, GIT_SORT_TOPOLOGICAL):
-        time = datetime.datetime.fromtimestamp(commit.commit_time).strftime('%-H')
+        time = datetime.datetime.fromtimestamp(commit.commit_time).strftime("%-H")
         number = times.get(time, 0)
         number += 1
         times[time] = number
     for time in range(0, 24):
         print("%d hour has %d commits" % (time, times.get(str(time), 0)))
+
 
 def authors(path):
     """Function to find the commits done on each authors, with their name and mail id"""
@@ -53,20 +52,23 @@ def authors(path):
         msg = "{0} has {1} commits".format(author, number)
         print(msg)
 
+
 @click.command()
-@click.option('--path', help="Will print the path provided.")
-@click.option('--author', is_flag=True, help="Will print the which author has how many commits.")
-@click.option('--all', is_flag=True, help="Will print all the informations.")
+@click.option("--path", help="Will print the path provided.")
+@click.option(
+    "--author", is_flag=True, help="Will print the which author has how many commits."
+)
+@click.option("--all", is_flag=True, help="Will print all the informations.")
 def main(path, author, all):
     """This is the primary function from where I am calling the other functions"""
     if not path:
         click.echo("You need to provide the path.")
         return
 
-   ##here means we have a path
+    ##here means we have a path
 
     if os.path.exists(path):
-        click.echo('{0} this is the path provided.'.format(path))
+        click.echo("{0} this is the path provided.".format(path))
 
         if not path.endswith(".git" or ".git/"):
             path = os.path.join(path, ".git")
@@ -85,12 +87,9 @@ def main(path, author, all):
             date(path)
             get_time(path)
 
-
-
     else:
         print("Please provide a correct git repository path.")
 
 
-if __name__=="__main":
+if __name__ == "__main":
     main()
-
