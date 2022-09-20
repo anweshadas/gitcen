@@ -15,13 +15,13 @@ def date(path):
         number = data.get(day, 0)
         number += 1
         data[day] = number
-    print("Sunday has {0} commits".format(data["Sunday"]))
-    print("Monday has {0} commits".format(data["Monday"]))
-    print("Tuesday has {0} commits".format(data["Tuesday"]))
-    print("Wednesday has {0} commits".format(data["Wednesday"]))
-    print("Thursday has {0} commits".format(data["Thursday"]))
-    print("Friday has {0} commits".format(data["Friday"]))
-    print("Saturday has {0} commits".format(data["Saturday"]))
+    print(f"Sunday has {data.get('Sunday', 0)} commits")
+    print(f"Monday has {data.get('Monday', 0)} commits")
+    print(f"Tuesday has {data.get('Tuesday', 0)} commits")
+    print(f"Wednesday has {data.get('Wednesday', 0)} commits")
+    print(f"Thursday has {data.get('Thursday', 0)} commits")
+    print(f"Friday has {data.get('Friday', 0)} commits")
+    print(f"Saturday has {data.get('Saturday', 0)} commits")
 
 
 def get_time(path):
@@ -34,7 +34,7 @@ def get_time(path):
         number += 1
         times[time] = number
     for time in range(0, 24):
-        print("%d hour has %d commits" % (time, times.get(str(time), 0)))
+        print(f"{time} hour has {times.get(str(time), 0)} commits")
 
 
 def authors(path):
@@ -44,12 +44,12 @@ def authors(path):
     for commit in repo.walk(repo.head.target, GIT_SORT_TOPOLOGICAL):
         author = commit.author.name
         email = commit.author.email
-        key = "{0} <{1}>".format(author, email)
+        key = f"{author} <{email}>"
         number = info.get(key, 0)
         number += 1
         info[key] = number
     for author, number in info.items():
-        msg = "{0} has {1} commits".format(author, number)
+        msg = f"{author} has {number} of commits"
         print(msg)
 
 
